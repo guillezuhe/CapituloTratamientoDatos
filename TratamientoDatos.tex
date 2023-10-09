@@ -1,0 +1,178 @@
+\documentclass{book}
+\usepackage{hyperref}
+\usepackage{amsmath}
+% \usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
+\begin{document}
+
+\chapter*{Tratamiento de datos}
+
+En este capítulo se recoge un breve resumen de tratamiento y representación de datos,
+con los elementos fundamentales necesarios para la elaboración de informes del curso.
+
+\section{Expresión de resultados}
+
+Una medición nos permite determinar un valor asociado a una magnitud física, bien mediante
+la cuenta de un número de sucesos o comparación con una unidad de medida. Cuando realizamos
+una medición es imposible determinar el valor exacto de dicha magnitud, sino que debemos
+limitarnos a encontrar un valor aproximado siempre limitado por la precisión de los instrumentos
+de medida y el observador, así como las propiedades intrínsecas de la materia (fluctuaciones,
+indeterminación, etc). De esta manera, cuando realizamos sucesivas medidas podemos obtener valores
+ligeramente distintos, por lo que presentaremos nuestros resultados dando un valor estimado dentro
+de un rango en el que tenemos un grado de confianza en el que se encuentra el valor verdadero de
+la magnitud. Esto es, toda magnitud física derivada de un experimento lleva asociado un error, 
+que ha de expresarse siempre junto al valor estimado, normalmente mediante el símbolo '$\pm$'.
+Sea una magnitud $x$, denotaremos su error asociado como $\Delta x$. Veamos un ejemplo:
+
+
+\begin{equation}
+    m = 5.64 \pm 0.23 \; \mathrm{kg}
+\end{equation}
+
+Destacamos varios puntos sobre la representación de este error asociado:
+
+\begin{itemize}
+  \item Todos los resultados presentes en un informe de laboratorio deben incluir su error 
+  asociando.
+  \item Todos los resultados deben expresarse junto a las \textbf{unidades} en las que se mide dicha 
+  magnitud física.
+  \item Todo error tiene como \textbf{máximo dos cifras significativas}. Además, la cantidad medida
+  ha de tener como última cifra significativa la última de su error. No tiene sentido proporcionar
+  un valor con más precisión que el error (Ver ejemplos a continuación.)
+  \item Frecuentemente, las variables se representan con letra formateada cursiva, mientras 
+  que para las unidades se emplea un formato
+\end{itemize}
+
+A continuación se muestran algunos ejemplos de buena y mala representación de resultados medidos.
+
+\begin{equation}
+  \begin{aligned}
+    & \color{ForestGreen} P = 14800 \pm 3000 \; \mathrm{Pa} \\
+    & \color{ForestGreen} \rho = 7860.1 \pm 2.3 \; \mathrm{kg / m^{-3}} \\
+    & \color{ForestGreen} v = 2300 \pm 700 \; \mathrm{m/s} \\
+    & \color {ForestGreen} d = ( 23.21 \pm 75 ) \pm 10^{-6} \; \mathrm{\mu m}
+  \end{aligned}
+\end{equation}
+
+\begin{equation}
+  \begin{aligned}
+    & \color{Red} P = 14845 \pm 3253 \; \mathrm{Pa} \\
+    & \color{Red} \rho = 7860.1 \pm 2.3 \; kg / m^{-3} \\
+    & \color{Red} v = 2336 \pm 700 \; \mathrm{m/s} \\
+    & \color {Red} d = ( 23.2186 \pm 7506 ) \pm 10^{-6} \; \mathrm{\mu m}
+  \end{aligned}
+\end{equation}
+
+
+Es muy importante representar los resultados correctamente. Un informe nunca podrá obtener una
+buena calificación si hay fallos en este aspecto. Como norma general, se recomienda trabajar con
+unidades del sistema internacional y sus múltiplos para evitar errores derivados del manejo de
+unidades.
+
+En las siguientes secciones se detalla cómo calcular el error asociado a una magnitud física. 
+Este error se obtendrá de forma diferente dependiendo de si el valor se observa directamente en
+instrumento de medida (\textbf{medida directa}) o si se obtiene utilizando expresiones matemáticas a partir
+de una o varias medidas directas (\textbf{medida indirecta}).
+
+
+\section{Incertidumbre en medidas directas}
+Esta incertidumbre se asocia con la medida directa de una magnitud utilizando un instrumento.
+Dentro de esta incertidumbre, encontramos contribuciones de distinto tipo que debemos considerar
+en su conjunto.
+\subsection{Tipo A}
+También conocido como incertidumbre estadística. Se asocia con factores ambientales aleatorios, 
+fluctuaciones o vibraciones. Por ejemplo, variaciones de temperatura a lo largo de un experimento.
+Para determinar esta contribución al error debemos realizar $n$ medidas, y se calcula su desviación
+típica $s$. La magnitud tomará el valor medio de estas $n$ medidas, y el error asociado de tipo A 
+vendrá determinado por:
+
+\begin{equation}
+  \Delta x_A = \frac{s}{\sqrt{n}}
+\end{equation}
+
+\textcolor{red}{¿Incluimos multiplicar por la t de student o preferís no hacerlo?}
+
+\subsection{Tipo B}
+También conocida como incertidumbre sistemática de precisión, se relaciona con la sensibilidad,
+denotada como $\delta x$, del instrumento utilizado. Así, el error tipo B se corresponderá con:
+
+\begin{equation}
+  \Delta x_B = \delta x
+\end{equation}
+
+En caso de no disponer de ninguna referencia, suele tomarse su valor como una unidad de la cifra 
+que se puede apreciar con el aparato. Sin embargo, el error instrumental suele ser mayor que esta 
+última cifra y muchos fabricantes así lo indican en los manuales de uso de los dispositivos. Por 
+tanto es necesario consultar siempre si el instrumento que estamos utilizando dispone de alguna 
+indicación de su precisión.
+
+Un ejemplo muy claro es el caso de los polímetros, en los que siempre se dispone de un manual en
+el que el fabricante detalla el error instrumental asociado a cada magnitud como un tanto por
+ciento de la medida más algunos dígitos. Por ejemplo, supongamos que medimos un volataje y
+la pantalla del polímetro muestra $23.85 \; \textrm{V}$. Si recurrimos al manual encontraremos que la precisión
+del aparato para el voltaje es de un 1\% del valor leído + 3 dígitos. Por tanto, el error de tipo
+B asociado a esta medida será
+
+\begin{equation}
+  \Delta x_B = 0.23 \pm 0.03 \; \textrm{V} = 0.26 \; \textrm{V}
+\end{equation}
+
+\subsection{Incertidumbre combinada y otras contribuciones}
+
+Las dos contribuciones anteriores han de considerarse para el cálculo del error total asociado a
+una media. Es por ello que se define la incertidumbre combinada como la suma cuadrática de las
+incertidumbres de tipo A y B.
+
+\begin{equation}
+  \Delta x_C = \sqrt{(\Delta x_A)^2 + (\Delta x_B)^2}
+\end{equation}
+
+No obstante, existen otras causas distintas a las anteriores que pueden degradar una medida, y
+que agrupamos bajo el nombre de \textbf{incertidumbre sistemática}. Estas son incertidumbres que se producen
+en cada medida de la magnitud que se realiza, y que pueden deberse a una mala interpretación de
+los valores proporcionados por el dispositivo o a un error de calibración (error de cero) que
+desplace o distorsione la medida. Hemos de asegurarnos antes de comenzar la toma de datos que no
+estamos incurriendo en ningún error de este tipo.
+
+\section{Incertidumbre en medidas indirectas}
+
+Una vez obtenidas las incertidumbres de las medidas directas, si queremos determinar cualquier
+magnitud derivada, debemos obtener el error de esta medida indirecta. Supongamos una medida
+indirecta $y$ que se obtiene a partir de varias medidas directas independientes $x_1$, $x_2$, 
+... $x_n$  y una serie de constntes $c_1$, $c_2$, ... $c_m$, mediante una relación funcional:
+
+\begin{equation}
+  y = f(x_1, x_2, ... c_1, c_2, ...)
+\end{equation}
+
+El valor esperado de esta magnitud indirecta $y$ se calcula a partir de los valores medidos:
+
+\begin{equation}
+  \bar{y} = f(\bar{x}_1, \bar{x}_2, ... c_1, c_2, ...)
+\end{equation}
+
+La incertidumbre de esta magnitud $y$ se obtiene de la llamada \textbf{propagación cuadrática de 
+errores}.
+
+\begin{equation}
+  \Delta y = \sqrt{ \left( \frac{\partial f}{\partial x_1} \right)^2 (\Delta_C x_1)^2 + 
+  \left( \frac{\partial f}{\partial x_2} \right)^2 (\Delta_C x_2)^2 + ... +
+  \left( \frac{\partial f}{\partial x_n} \right)^2 (\Delta_C x_n)^2}
+\end{equation}
+
+Respecto a las constantes, debemos de asegurarnos de tomar sus valores con la suficiente precisión
+como para que su contribución a la incertidumbre pueda considerarse despreciable.
+
+\section{Ajustes y representaciones}
+
+\subsection{Test de bondad del ajuste}
+
+
+
+
+
+
+
+
+
+\end{document}
