@@ -1,8 +1,11 @@
 \documentclass{book}
 \usepackage{hyperref}
 \usepackage{amsmath}
-% \usepackage{xcolor}
+\usepackage{multicol}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{changepage}
 \begin{document}
 
 \chapter*{Tratamiento de datos}
@@ -161,16 +164,141 @@ errores}.
 \end{equation}
 
 Respecto a las constantes, debemos de asegurarnos de tomar sus valores con la suficiente precisión
-como para que su contribución a la incertidumbre pueda considerarse despreciable.
+como para que su contribución a la incertidumbre pueda considerarse despreciable. Algunos casos
+frecuentes se detallan a continuación.
+
+\begin{center}
+  \begin{tabular}{ccc}
+    Cambio de ecala & $y = c X$ & $\Delta y = | c \Delta x |$  \\
+    Potencias & $y = c x^b$ & $\Delta y = | b c x^{b-1} \Delta x|$ \\
+    Suma y diferencia & $y = x_1 \pm x_2$ & $\Delta y = \sqrt{(\Delta x_1)^2 + (\Delta x_2)^2}$ \\
+    Producto & $y = x_1 \cdot x_2$ & $\Delta y = \sqrt{(x_2 \Delta x_1)^2 + (x_1 \Delta x_2)^2}$ \\ 
+  \end{tabular} 
+\end{center}
+
 
 \section{Ajustes y representaciones}
 
+En numerosas experiencias de laboratorio se pedirá comprobar ciertas leyes mediante la realización
+de algún experimento. Es decir, ha de demostrarse que existe una relación funcional entre dos
+magnitudes. Una manera especialmente útil de demostrar esta relación es mediante ajustes, buscando
+la expresión matemática que mejor aproxime la relación entre dos variables $y$ y $x$.
+
+Para hallar esta expresión utilizaremos el método de los mínimos cuadrados, en el que se optimizan
+los parámetros libres de la función de forma que el error cuadrático (diferencia entre los valores
+medidos y los previstos al cuadrado) sea mínimo.
+
+Siempre que sea posible, utilizaremos un ajuste lineal, es decir, utilizando variables entre las
+que se prevea una relación lineal. 
+
+\begin{equation}
+  y = m x + c ,
+\end{equation}
+
+donde $m$ y $c$ son dos parámetros de ajuste. Si la ley que queremos demostrar no prevee una 
+relación lineal
+entre variables, deberemos intentar linearizar la relación. Supongamos, por ejemplo, dos magnitudes
+relacionadas mediante una ley de Potencias
+
+\begin{equation}
+  y = c x^b
+\end{equation}
+
+En el laboratorio mediremos valores de $x$ e $y$, y para demostrar si existe la relación prevista
+entre ambas magnitudes realizaremos un ajuste por mínimos cuadrados. Para poder realizar un ajuste
+lineal de este conjunto de medidas, podemos linearizar la ecuación tomando logaritmos:
+
+\begin{equation}
+  \log{y} = b \log{x} + \log{c}
+\end{equation}
+
+De esta manera, trabajando con los logaritmos de las magnitudes medidas podemos hallar los 
+parámetros de ajuste mediante un ajuste lineal. La pendiente de esta recta nos dará el exponente
+y el corte con el eje de abcisas el logaritmo de la constante multiplicativa.
+
+Por supuesto no siempre es posible obtener una relación lineal entre dos magnitudes que se
+desean relacionar, por lo que habrá casos en los que tengamos que realizar ajustes no lineales.
+Los programas generalmente utilizados (Gnuplot, Origin, Mathematica, Python ...) siempre ofrecen
+la posibilidad de ajustes no lineales.
+
+Es muy importante tener presente que sea cual sea la dependencia funcional, los parámetros de
+ajuste siempre han de presentarse junto a su error, de forma que podamos realizar propagación
+cuadrática para obtener los errores de magnitudes derivadas. Los programas de ajuste mencionados
+suelen ofrecer el error de los parámetros, normalmente en un intervalo de estimación del 95\%.
+
+
 \subsection{Test de bondad del ajuste}
 
+Siempre que se realice un ajuste funcional a los datos experimentales es necesario realizar un
+test de bondad para comprobar si este ajuste es significativo y realmente explica la dependencia
+propuesta para los valores medidos. Existen numerosas maneras de medir la calidad del ajuste, entre
+los que podemos señalar:
+
+\begin{itemize}
+  \item \textbf{Coeficiente de correlación.} Normalmente denotado con $r$, suele ser proporcionado
+  por el propio software de ajuste, con un valor que oscila entre $-1$ (ajuste perfecto con
+  pendiente negativa) y $1$ (ajuste perfecto con pendiente positiva). Valores cercanos a $0$ 
+  indican que no existe correlación entre los valores medidos y la función propuesta.
+  También es usual proporcionar el coeficiente de correlación $R^2$, que para un ajuste lineal 
+  coincide con el cuadrado de $r$.
+  \item \textbf{Test chi-cuadrado.} Se obtiene del programa de ajuste o se calcula el valor
+  experimental de $\chi^2$
+  \begin{equation}
+    \chi_{\textrm{exp}}^2 = \sum_{i=1}^n \frac{(y_i^{\textrm{obs}} - y_i^{\textrm{ajuste}})^2}{(\Delta y_i^{\textrm{obs}})^2}
+  \end{equation}
+  Este valor ha de compararse con el tabulado con $n-p$ grados de libertad,
+  donde $p$ es el número de grupos medidos y $n$ el número total de muestas.
+  \item \textbf{F de Fisher.} El valor experimental que proporciona el programa de ajuste se compara
+  con el tabulado, usando por norma general un 95\% de confianza y grados de libertad $(p-1, n-p)$.
+\end{itemize}
 
 
+\subsection{Representación gráfica}
+Para garantizarque las representaciones gráficas sean inteligibles y utiles, han de realizarse 
+siguiendo una serie de pautas de buenas prácticas:
 
+\begin{itemize}
+  \item Procura elegir adecuadamente las escalas de los ejes, de forma que los valores queden
+  ajustados dentro de la caja de la gráfica.
+  \item Indicar la magnitud representada y sus unidades en cada eje. Utiliza siempre un formato y
+  tamaño adecuado para que puedan leerse correctamente.
+  \item Mostrar los datos experimentales junto con sus barras de error siempre que sea posible.
+  \item Distinguir mediante distintos símbolos y/o colores los distintos conjuntos de datos,
+  procurando mantener una leyendas legible en la que se indique qué representa cada símbolo.
+  \item Es recomendable incluir un pie de figura en el que se den detalles sobre la representación.
+  \item No unir mediante segmentos los datos que se representen en las gráficas. Los datos obtenidos
+  en el laboratorio se corresponden con medidas discretas, por lo que habrán de representarse
+  mediante símbolos y nunca con líneas. Las líneas han de usarse para representar las funciones de
+  ajuste.
+\end{itemize}
 
+En la Figura \ref{fig:dosgrafs} se muestran dos ejemplos de mala y buena representación 
+respectivamente para el mismo conjunto de datos.
+
+\begin{figure}[h]
+  
+  \begin{adjustwidth}{-4.5cm}{-3cm}
+  \centering
+  \begin{subfigure}{0.45\pdfpagewidth}
+      \centering
+      \includegraphics[width=\linewidth]{assets/fig/malagrafica.png}
+      \caption{}
+      \label{fig:malagraf}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\pdfpagewidth}
+      \centering
+      \includegraphics[width=\linewidth]{assets/fig/buenagrafica.png}
+      \caption{}
+      \label{fig:buenagraf}
+  \end{subfigure}
+  \end{adjustwidth}
+  \caption{Dos representaciones del mismo conjunto de datos. (a) representa un fatal
+  ejemplo de representación. (b) muestra los mismos datos junto a un ajuste lineal
+  de una manera mucho más clara.}
+  \label{fig:dosgrafs}
+  
+\end{figure}
 
 
 
