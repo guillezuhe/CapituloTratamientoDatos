@@ -6,7 +6,9 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{changepage}
+\usepackage[spanish]{babel}
 \begin{document}
+\setcounter{chapter}{1}
 
 \chapter*{Tratamiento de datos}
 
@@ -17,11 +19,11 @@ con los elementos fundamentales necesarios para la elaboración de informes del 
 
 Una medición nos permite determinar un valor asociado a una magnitud física, bien mediante
 la cuenta de un número de sucesos o comparación con una unidad de medida. Cuando realizamos
-una medición es imposible determinar el valor exacto de dicha magnitud, sino que debemos
+una medición es imposible determinar el valor exacto de dicha magnitud, por lo que debemos
 limitarnos a encontrar un valor aproximado siempre limitado por la precisión de los instrumentos
 de medida y el observador, así como las propiedades intrínsecas de la materia (fluctuaciones,
 indeterminación, etc). De esta manera, cuando realizamos sucesivas medidas podemos obtener valores
-ligeramente distintos, por lo que presentaremos nuestros resultados dando un valor estimado dentro
+ligeramente distintos, y esto nos obliga a presentar nuestros resultados dando un valor estimado dentro
 de un rango en el que tenemos un grado de confianza en el que se encuentra el valor verdadero de
 la magnitud. Esto es, toda magnitud física derivada de un experimento lleva asociado un error, 
 que ha de expresarse siempre junto al valor estimado, normalmente mediante el símbolo '$\pm$'.
@@ -43,7 +45,7 @@ Destacamos varios puntos sobre la representación de este error asociado:
   ha de tener como última cifra significativa la última de su error. No tiene sentido proporcionar
   un valor con más precisión que el error (Ver ejemplos a continuación.)
   \item Frecuentemente, las variables se representan con letra formateada cursiva, mientras 
-  que para las unidades se emplea un formato
+  que para las unidades se emplea un formato regular.
 \end{itemize}
 
 A continuación se muestran algunos ejemplos de buena y mala representación de resultados medidos.
@@ -79,7 +81,7 @@ de una o varias medidas directas (\textbf{medida indirecta}).
 
 
 \section{Incertidumbre en medidas directas}
-Esta incertidumbre se asocia con la medida directa de una magnitud utilizando un instrumento.
+Esta incertidumbre se asocia con la medida directa de una magnitud mediante un dispositivo o técnica.
 Dentro de esta incertidumbre, encontramos contribuciones de distinto tipo que debemos considerar
 en su conjunto.
 \subsection{Tipo A}
@@ -117,7 +119,7 @@ del aparato para el voltaje es de un 1\% del valor leído + 3 dígitos. Por tant
 B asociado a esta medida será
 
 \begin{equation}
-  \Delta x_B = 0.23 \pm 0.03 \; \textrm{V} = 0.26 \; \textrm{V}
+  \Delta x_B = 0.24 \pm 0.03 \; \textrm{V} = 0.27 \; \textrm{V}
 \end{equation}
 
 \subsection{Incertidumbre combinada y otras contribuciones}
@@ -165,11 +167,12 @@ errores}.
 
 Respecto a las constantes, debemos de asegurarnos de tomar sus valores con la suficiente precisión
 como para que su contribución a la incertidumbre pueda considerarse despreciable. Algunos casos
-frecuentes se detallan a continuación.
+frecuentes de propagación cuadrática de errores se detallan a continuación.
 
 \begin{center}
-  \begin{tabular}{ccc}
-    Cambio de ecala & $y = c X$ & $\Delta y = | c \Delta x |$  \\
+  \renewcommand{\arraystretch}{1.75}
+  \begin{tabular}{lll}
+    Cambio de ecala & $y = c x$ & $\Delta y = | c \Delta x |$  \\
     Potencias & $y = c x^b$ & $\Delta y = | b c x^{b-1} \Delta x|$ \\
     Suma y diferencia & $y = x_1 \pm x_2$ & $\Delta y = \sqrt{(\Delta x_1)^2 + (\Delta x_2)^2}$ \\
     Producto & $y = x_1 \cdot x_2$ & $\Delta y = \sqrt{(x_2 \Delta x_1)^2 + (x_1 \Delta x_2)^2}$ \\ 
@@ -186,7 +189,7 @@ la expresión matemática que mejor aproxime la relación entre dos variables $y
 
 Para hallar esta expresión utilizaremos el método de los mínimos cuadrados, en el que se optimizan
 los parámetros libres de la función de forma que el error cuadrático (diferencia entre los valores
-medidos y los previstos al cuadrado) sea mínimo.
+medidos y los previstos, al cuadrado) sea mínimo.
 
 Siempre que sea posible, utilizaremos un ajuste lineal, es decir, utilizando variables entre las
 que se prevea una relación lineal. 
@@ -214,15 +217,16 @@ lineal de este conjunto de medidas, podemos linearizar la ecuación tomando loga
 
 De esta manera, trabajando con los logaritmos de las magnitudes medidas podemos hallar los 
 parámetros de ajuste mediante un ajuste lineal. La pendiente de esta recta nos dará el exponente
-y el corte con el eje de abcisas el logaritmo de la constante multiplicativa.
+y el corte con el eje de ordenadas el logaritmo de la constante multiplicativa de la relación
+original.
 
-Por supuesto no siempre es posible obtener una relación lineal entre dos magnitudes que se
+Por supuesto no siempre es posible obtener una expresión lineal entre dos magnitudes que se
 desean relacionar, por lo que habrá casos en los que tengamos que realizar ajustes no lineales.
 Los programas generalmente utilizados (Gnuplot, Origin, Mathematica, Python ...) siempre ofrecen
 la posibilidad de ajustes no lineales.
 
-Es muy importante tener presente que sea cual sea la dependencia funcional, los parámetros de
-ajuste siempre han de presentarse junto a su error, de forma que podamos realizar propagación
+Es muy importante tener presente que sea cual sea la dependencia funcional, \textbf{los parámetros de
+ajuste siempre han de presentarse junto a su error}, de forma que podamos realizar propagación
 cuadrática para obtener los errores de magnitudes derivadas. Los programas de ajuste mencionados
 suelen ofrecer el error de los parámetros, normalmente en un intervalo de estimación del 95\%.
 
@@ -254,7 +258,7 @@ los que podemos señalar:
 
 
 \subsection{Representación gráfica}
-Para garantizarque las representaciones gráficas sean inteligibles y utiles, han de realizarse 
+Para garantizar que las representaciones gráficas sean inteligibles y útiles, han de realizarse 
 siguiendo una serie de pautas de buenas prácticas:
 
 \begin{itemize}
@@ -264,10 +268,10 @@ siguiendo una serie de pautas de buenas prácticas:
   tamaño adecuado para que puedan leerse correctamente.
   \item Mostrar los datos experimentales junto con sus barras de error siempre que sea posible.
   \item Distinguir mediante distintos símbolos y/o colores los distintos conjuntos de datos,
-  procurando mantener una leyendas legible en la que se indique qué representa cada símbolo.
+  procurando mantener una leyendas legible en la que se indique qué representa cada conjunto.
   \item Es recomendable incluir un pie de figura en el que se den detalles sobre la representación.
   \item No unir mediante segmentos los datos que se representen en las gráficas. Los datos obtenidos
-  en el laboratorio se corresponden con medidas discretas, por lo que habrán de representarse
+  en el laboratorio se corresponden generalmente con medidas discretas, por lo que habrán de representarse
   mediante símbolos y nunca con líneas. Las líneas han de usarse para representar las funciones de
   ajuste.
 \end{itemize}
@@ -277,7 +281,7 @@ respectivamente para el mismo conjunto de datos.
 
 \begin{figure}[h]
   
-  \begin{adjustwidth}{-4.5cm}{-3cm}
+  \begin{adjustwidth}{-3cm}{-4.5cm}
   \centering
   \begin{subfigure}{0.45\pdfpagewidth}
       \centering
