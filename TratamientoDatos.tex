@@ -17,15 +17,15 @@ con los elementos fundamentales necesarios para la elaboración de informes del 
 
 \section{Expresión de resultados}
 
-Una medición nos permite determinar un valor asociado a una magnitud física, bien mediante
+Una medida nos permite determinar un valor asociado a una magnitud física, bien mediante
 la cuenta de un número de sucesos o comparación con una unidad de medida. Cuando realizamos
-una medición es imposible determinar el valor exacto de dicha magnitud, por lo que debemos
+una medida es imposible determinar el valor exacto de dicha magnitud, por lo que debemos
 limitarnos a encontrar un valor aproximado siempre limitado por la precisión de los instrumentos
 de medida y el observador, así como las propiedades intrínsecas de la materia (fluctuaciones,
 indeterminación, etc). De esta manera, cuando realizamos sucesivas medidas podemos obtener valores
 ligeramente distintos. Esto nos obliga a presentar nuestros resultados dando un valor estimado dentro
 de un rango en el que tenemos un grado de confianza en el que se encuentra el valor verdadero de
-la magnitud. Esto es, toda magnitud física derivada de un experimento lleva asociado un error, 
+la magnitud. Esto es, toda cantidad de una magnitud física derivada de un experimento lleva asociado un error, 
 que ha de expresarse siempre junto al valor estimado, normalmente mediante el símbolo '$\pm$'.
 Sea una magnitud $x$, denotaremos su error asociado como $\Delta x$. Veamos un ejemplo:
 
@@ -39,7 +39,7 @@ Destacamos varios puntos sobre la representación de este error asociado:
 \begin{itemize}
   \item Todos los resultados presentes en un informe de laboratorio deben incluir su error 
   asociado.
-  \item Todos los resultados deben expresarse junto a las \textbf{unidades} en las que se mide dicha 
+  \item Todos los resultados deben expresarse con las \textbf{unidades} en las que se mide dicha 
   magnitud física.
   \item Todo error tiene como \textbf{máximo dos cifras significativas}. Además, la cantidad medida
   ha de tener como última cifra significativa la última de su error. No tiene sentido proporcionar
@@ -74,7 +74,7 @@ buena calificación si hay fallos en este aspecto. Como norma general, se recomi
 unidades del sistema internacional y sus múltiplos para evitar errores derivados del manejo de
 unidades.
 
-En las siguientes secciones se detalla cómo calcular el error asociado a una magnitud física. 
+En las siguientes secciones se detalla cómo calcular el error asociado a una medida. 
 Este error se obtendrá de forma diferente dependiendo de si el valor se observa directamente en
 instrumento de medida (\textbf{medida directa}) o si se obtiene utilizando expresiones matemáticas a partir
 de una o varias medidas directas (\textbf{medida indirecta}).
@@ -94,8 +94,6 @@ vendrá determinado por:
 \begin{equation}
   \Delta x_A = \frac{s}{\sqrt{n}}
 \end{equation}
-
-\textcolor{red}{¿Incluimos multiplicar por la t de student o preferís no hacerlo?}
 
 \subsection{Tipo B}
 También conocida como incertidumbre sistemática de precisión, se relaciona con la sensibilidad,
@@ -202,7 +200,7 @@ que se prevea una relación lineal.
 
 donde $m$ y $c$ son dos parámetros de ajuste. Si la ley que queremos demostrar no prevee una 
 relación lineal
-entre variables, deberemos intentar linearizar la relación. Supongamos, por ejemplo, dos magnitudes
+entre variables, deberemos intentar linealizar la relación. Supongamos, por ejemplo, dos magnitudes
 relacionadas mediante una ley de potencias
 
 \begin{equation}
@@ -245,15 +243,30 @@ los que podemos señalar:
   por el propio software de ajuste, con un valor que oscila entre $-1$ (ajuste perfecto con
   pendiente negativa) y $1$ (ajuste perfecto con pendiente positiva). Valores cercanos a $0$ 
   indican que no existe correlación entre los valores medidos y la función propuesta.
-  También es usual proporcionar el coeficiente de correlación $R^2$, que para un ajuste lineal 
+  También es usual proporcionar el coeficiente de determinación $R^2$, que para un ajuste lineal 
   coincide con el cuadrado de $r$.
   \item \textbf{Test chi-cuadrado.} Se obtiene del programa de ajuste o se calcula el valor
   experimental de $\chi^2$
   \begin{equation}
     \chi_{\textrm{exp}}^2 = \sum_{i=1}^n \frac{(y_i^{\textrm{obs}} - y_i^{\textrm{ajuste}})^2}{(\Delta y_i^{\textrm{obs}})^2}
   \end{equation}
-  Este valor ha de compararse con el tabulado con $n-p$ grados de libertad,
-  donde $p$ es el número de grupos medidos y $n$ el número total de muestras.
+  donde $y_i^{\textrm{obs}} - y_i^{\textrm{ajuste}}$ es la desviación típica de los valores de $y$
+  correspondientes a una $x_i$ dada. Si no se dispone de esa información se puede tomar el cuadrado
+  del error de este dato. A continuación, se calcula la $\chi^2$ reducida, $\chi^2_{\nu}$, como el
+  cociente entre $\chi_{\textrm{exp}}^2$ y el número de grados de libertad $\nu = n - p$:
+  \begin{equation}
+    \chi^2_{\nu} = \frac{\chi_{\textrm{exp}}^2}{\nu}
+  \end{equation}
+  Si el ajuste es una buena aproximación a los datos, el estadístico $\chi^2_{\nu}$ debe ser próximo 
+  a la unidad. Puede ocurrir, por el contrario que:
+  \begin{itemize}
+    \item $\chi^2_{\nu} > 1$. La función de ajuste no es adecuada para describir los datos, dado que
+    las desviaciones entre datos observados y su ajuste son demasiado grandes.
+    \item $\chi^2_{\nu} < 1$. No necesariamente supone un mejor ajuste. Hay incertidumbre en la estimación
+    de la varianza del ajuste. Si es muy pequeño, puede indicar un error en la asignación de incertidumbres
+    en las variables medidas.
+  \end{itemize}
+
   \item \textbf{F de Fisher.} El valor experimental que proporciona el programa de ajuste se compara
   con el tabulado, usando por norma general un 95\% de confianza y grados de libertad $(p-1, n-p)$.
 \end{itemize}
@@ -264,13 +277,13 @@ Para garantizar que las representaciones gráficas sean inteligibles y útiles, 
 siguiendo una serie de pautas de buenas prácticas:
 
 \begin{itemize}
-  \item Procurar elegir adecuadamente las escalas de los ejes, de forma que los valores queden
+  \item Procure elegir adecuadamente las escalas de los ejes, de forma que los valores queden
   ajustados dentro de la caja de la gráfica.
-  \item Indicar la magnitud representada y sus unidades en cada eje. Utiliza siempre un formato y
+  \item Indique la magnitud representada y sus unidades en cada eje. Utilice siempre un formato y
   tamaño adecuado para que puedan leerse correctamente.
   \item Mostrar los datos experimentales junto con sus barras de error siempre que sea posible.
   \item Distinguir mediante distintos símbolos y/o colores los distintos conjuntos de datos,
-  procurando mantener una leyendas legible en la que se indique qué representa cada conjunto.
+  procurando mantener una leyenda legible en la que se indique qué representa cada conjunto.
   \item Es recomendable incluir un pie de figura en el que se den detalles sobre la representación.
   \item No unir mediante segmentos los datos que se representen en las gráficas. Los datos obtenidos
   en el laboratorio se corresponden generalmente con medidas discretas, por lo que habrán de representarse
